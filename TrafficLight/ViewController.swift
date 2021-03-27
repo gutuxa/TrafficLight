@@ -7,28 +7,37 @@
 
 import UIKit
 
+enum Lights {
+    case red, yellow, green
+}
+
 class ViewController: UIViewController {
+    
+    @IBOutlet var startButton: UIButton!
     
     @IBOutlet var redLightView: UIView!
     @IBOutlet var yellowLightView: UIView!
     @IBOutlet var greenLightView: UIView!
-    @IBOutlet var startButton: UIButton!
     
-    var lights: [UIView] = []
-    var isStartButtonPressed = false
-    var nextActiveLightIndex = 0
+    private let lightOn: CGFloat = 1
+    private let lightOff: CGFloat = 0.3
+    private var isStartButtonPressed = false
+    private var nextActiveLight = Lights.red
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        lights = [redLightView, yellowLightView, greenLightView]
-        
-        for light in lights {
-            light.layer.cornerRadius = 50
-            light.alpha = 0.3
-        }
-        
         startButton.layer.cornerRadius = 5
+        
+        redLightView.alpha = lightOff
+        yellowLightView.alpha = lightOff
+        greenLightView.alpha = lightOff
+    }
+    
+    override func viewWillLayoutSubviews() {
+        redLightView.layer.cornerRadius = redLightView.frame.width / 2
+        yellowLightView.layer.cornerRadius = yellowLightView.frame.width / 2
+        greenLightView.layer.cornerRadius = greenLightView.frame.width / 2
     }
 
     @IBAction func startButtonPressed() {
@@ -37,18 +46,19 @@ class ViewController: UIViewController {
             startButton.setTitle("Next", for: .normal)
         }
         
-        for (lightIndex, light) in lights.enumerated() {
-            if lightIndex == nextActiveLightIndex {
-                light.alpha = 1
-            } else {
-                light.alpha = 0.3
-            }
-        }
-        
-        nextActiveLightIndex += 1
-        
-        if nextActiveLightIndex == lights.count {
-            nextActiveLightIndex = 0
+        switch nextActiveLight {
+        case .red:
+            redLightView.alpha = lightOn
+            greenLightView.alpha = lightOff
+            nextActiveLight = .yellow
+        case .yellow:
+            yellowLightView.alpha = lightOn
+            redLightView.alpha = lightOff
+            nextActiveLight = .green
+        case .green:
+            greenLightView.alpha = lightOn
+            yellowLightView.alpha = lightOff
+            nextActiveLight = .red
         }
     }
 }
