@@ -49,6 +49,8 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="siU-62-eiV" firstAttribute="height" secondItem="wlU-Er-JWL" secondAttribute="width" multiplier="1:1" id="EVg-Wn-8Z1"/>
+                                    <constraint firstItem="LP0-vO-IGA" firstAttribute="height" secondItem="wlU-Er-JWL" secondAttribute="width" multiplier="1:1" id="Eoz-A1-deg"/>
+                                    <constraint firstItem="4GX-28-KZm" firstAttribute="height" secondItem="wlU-Er-JWL" secondAttribute="width" multiplier="1:1" id="ijo-cU-gk2"/>
                                 </constraints>
                             </stackView>
                         </subviews>
